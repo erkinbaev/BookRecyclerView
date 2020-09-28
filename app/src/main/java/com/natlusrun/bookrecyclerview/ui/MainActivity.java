@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements BookRvAdapter.Ite
     private Context context;
     private RecyclerView recyclerView;
 
+
     private TextView mBookName, mBookPrice, mBookDesc;
     //BookRvAdapter bookRvAdapter;
     //BookRepo bookRepo;
@@ -70,23 +71,11 @@ public class MainActivity extends AppCompatActivity implements BookRvAdapter.Ite
     }
 
     @Override
-    public void onItemClick(View view, int position) {
-        Book book = new Book();
-        String bookName = mBookName.getText().toString();
-        String bookPrice = mBookPrice.getText().toString();
-        String bookDesc = mBookDesc.getText().toString();
-
-        Intent intent = new Intent(this, BookInfoActivity.class);
-
-        book.setName(bookName);
-        book.setPrice(bookPrice);
-        book.setDesc(bookDesc);
-
-        intent.putExtra("book", book);
-        startActivity(intent);
-        finish();
-
+    public void onItemClick(int position) {
         Toast.makeText(this, "You clicked " + position, Toast.LENGTH_SHORT).show();
-
+        books.get(position);
+        Intent intent = new Intent(this, BookInfoActivity.class);
+        intent.putExtra(BookInfoActivity.KEY, books.get(position));
+        startActivity(intent);
     }
 }

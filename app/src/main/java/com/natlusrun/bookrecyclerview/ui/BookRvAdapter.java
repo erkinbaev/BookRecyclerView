@@ -1,8 +1,11 @@
 package com.natlusrun.bookrecyclerview.ui;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,7 +21,9 @@ public class BookRvAdapter extends RecyclerView.Adapter<BookRvAdapter.BookViewHo
 
     List<Book> bookList;
 
-    public static ItemClickListener listener;
+    public  ItemClickListener listener;
+
+    private Context mContext;
 
     public BookRvAdapter(List<Book> bookList) {
         this.bookList = bookList;
@@ -44,12 +49,13 @@ public class BookRvAdapter extends RecyclerView.Adapter<BookRvAdapter.BookViewHo
     }
 
 
-    static class BookViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class BookViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         CardView cv;
         TextView bookName;
         TextView bookPrice;
         TextView bookDesc;
+
 
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,22 +63,21 @@ public class BookRvAdapter extends RecyclerView.Adapter<BookRvAdapter.BookViewHo
             cv = itemView.findViewById(R.id.cv);
             bookName = itemView.findViewById(R.id.book_name_tv);
             bookPrice = itemView.findViewById(R.id.book_price_tv);
-            bookDesc = itemView.findViewById(R.id.book_desc_tv);
+            //bookDesc = itemView.findViewById(R.id.book_desc_tv);
 
-            bookDesc.setVisibility(View.GONE);
+            //bookDesc.setVisibility(View.GONE);
             itemView.setOnClickListener(this);
         }
 
         public void onBind(Book book) {
             bookName.setText(book.getName());
             bookPrice.setText(book.getPrice());
-            bookDesc.setText(book.getDesc());
-
+            //bookDesc.setText(book.getDesc());
         }
 
         @Override
         public void onClick(View v) {
-            if (listener != null) listener.onItemClick(v, getAdapterPosition());
+            if (listener != null) listener.onItemClick(getAdapterPosition());
         }
     }
 
@@ -81,6 +86,6 @@ public class BookRvAdapter extends RecyclerView.Adapter<BookRvAdapter.BookViewHo
     }
 
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(int position);
     }
 }
